@@ -5,6 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyJson", "TinyJson\TinyJs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyJson.Test", "TinyJson.Test\TinyJson.Test.csproj", "{A2392E8D-EDFA-423B-8E48-046D06CE95E8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B2ED82D5-42C3-499B-BC0D-472AC611EADD}"
+	ProjectSection(SolutionItems) = preProject
+		rakefile = rakefile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

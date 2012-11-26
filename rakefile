@@ -1,0 +1,16 @@
+
+CS_FILES = FileList["TinyJson/**/*.cs"]
+CS_FILES.exclude('*/obj/*')
+CS_FILES.exclude('*/bin/*')
+
+task :default => ['TinyJson.cs']
+
+task 'TinyJson.cs' => CS_FILES do 
+	f = File.new('TinyJson.cs', "w+")
+	CS_FILES.each do |f_name|
+	  f_in = File.open(f_name, "r")
+	  f_in.each {|f_str| f.puts(f_str)}
+	  f_in.close
+	end
+	f.close
+end
