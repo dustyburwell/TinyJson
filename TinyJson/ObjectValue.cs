@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-
-namespace TinyJson
+﻿namespace TinyJson
 {
+   using System;
+   using System.Collections.Generic;
+   using System.Text.RegularExpressions;
+
    public class ObjectValue
    {
       public IDictionary<string, Object> Value

@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace TinyJson.Framework
+﻿namespace TinyJson.Framework
 {
+   using System;
+
    public static class ParserCombinatorsMonad
    {
       // By providing Select, Where and SelectMany methods on Parser<TInput,TValue> we make the 

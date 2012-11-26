@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace TinyJson.Framework
+﻿namespace TinyJson.Framework
 {
+   using System;
+   using System.Collections.Generic;
+   using System.Linq;
+
    public abstract class JsonParsers<TInput> : CharParsers<TInput>
    {
       protected JsonParsers()

@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
-using TinyJson.Framework;
-
-namespace TinyJson
+﻿namespace TinyJson
 {
+   using System;
+   using System.IO;
+   using Framework;
+
    public static class Json
    {
       public static Object Parse<T>(string json)

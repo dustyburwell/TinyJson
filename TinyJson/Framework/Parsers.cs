@@ -1,7 +1,7 @@
-﻿using System.Linq;
-
-namespace TinyJson.Framework
+﻿namespace TinyJson.Framework
 {
+   using System.Linq;
+
    public abstract class Parsers<TInput>
    {
       public Parser<TInput, TValue> Succeed<TValue>(TValue value)

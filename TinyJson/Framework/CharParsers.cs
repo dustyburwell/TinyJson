@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace TinyJson.Framework
+﻿namespace TinyJson.Framework
 {
+   using System;
+
    public abstract class CharParsers<TInput> : Parsers<TInput>
    {
       public abstract Parser<TInput, char> AnyChar { get; }

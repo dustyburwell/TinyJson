@@ -1,15 +1,13 @@
-﻿using System;
-
-namespace TinyJson
+﻿namespace TinyJson
 {
    public class ArrayValue
    {
-      public Object[] Value
+      public object[] Value
       {
          get; private set;
       } 
       
-      public ArrayValue(Object[] value)
+      public ArrayValue(object[] value)
       {
          Value = value;
       }

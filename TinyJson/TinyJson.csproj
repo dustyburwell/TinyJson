@@ -43,7 +43,6 @@
     <Compile Include="ArrayValue.cs" />
     <Compile Include="Framework\CharParsers.cs" />
     <Compile Include="Framework\JsonParserFromString.cs" />
-    <Compile Include="Framework\JsonParserFromTextReader.cs" />
     <Compile Include="Framework\JsonParsers.cs" />
     <Compile Include="ObjectValue.cs" />
     <Compile Include="Framework\Parser.cs" />
@@ -52,7 +51,9 @@
     <Compile Include="Framework\Parsers.cs" />
     <Compile Include="Framework\Result.cs" />
     <Compile Include="Json.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

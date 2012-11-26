@@ -7,10 +7,10 @@
          get 
          { 
             return input => {
-                               if (input.Length > 0)
-                                  return new Result<string, char>(input[0], input.Substring(1));
+               if (input.Length > 0)
+                  return new Result<string, char>(input[0], input.Substring(1));
 
-                               return null;
+               return null;
             };
          }
       }
