@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using NUnit.Framework;
 using TinyJson.Framework;
 
@@ -10,7 +11,7 @@ namespace TinyJson.Test
       [Test]
       public void EmptyIsNull()
       {
-         var val = Json.InnerParse("");
+         var val = Json.Parse("");
 
          val.Should().BeNull();
       }
@@ -18,7 +19,7 @@ namespace TinyJson.Test
       [Test]
       public void Number()
       {
-         var val = Json.InnerParse("1234");
+         var val = Json.Parse("1234");
 
          ((double) val).Should().Be(1234);
       }
@@ -26,7 +27,7 @@ namespace TinyJson.Test
       [Test]
       public void True()
       {
-         var val = Json.InnerParse("true");
+         var val = Json.Parse("true");
 
          ((bool) val).Should().BeTrue();
       }
@@ -34,7 +35,7 @@ namespace TinyJson.Test
       [Test]
       public void False()
       {
-         var val = Json.InnerParse("false");
+         var val = Json.Parse("false");
 
          ((bool)val).Should().BeFalse();
       }
@@ -42,7 +43,7 @@ namespace TinyJson.Test
       [Test]
       public void Null()
       {
-         var val = Json.InnerParse("null");
+         var val = Json.Parse("null");
 
          val.Should().BeNull();
       }
@@ -50,7 +51,7 @@ namespace TinyJson.Test
       [Test]
       public void NumberWithWhitespace()
       {
-         var val = Json.InnerParse("   \t\r\n1234");
+         var val = Json.Parse("   \t\r\n1234");
 
          ((double)val).Should().Be(1234);
       }
@@ -58,7 +59,7 @@ namespace TinyJson.Test
       [Test]
       public void String()
       {
-         var val = Json.InnerParse("\"Hello, world!\"");
+         var val = Json.Parse("\"Hello, world!\"");
 
          ((string)val).Should().Be("Hello, world!");
       }
@@ -66,7 +67,7 @@ namespace TinyJson.Test
       [Test]
       public void StringWithWhitespace()
       {
-         var val = Json.InnerParse("    \t\r\n\"Hello, world!\"");
+         var val = Json.Parse("    \t\r\n\"Hello, world!\"");
 
          ((string)val).Should().Be("Hello, world!");
       }
@@ -74,7 +75,7 @@ namespace TinyJson.Test
       [Test]
       public void ArrayOfNumbers()
       {
-         var val = Json.InnerParse("[1234, 6789]");
+         var val = Json.Parse("[1234, 6789]");
 
          ((double) ((ArrayValue) val).Value[0]).Should().Be(1234);
          ((double) ((ArrayValue) val).Value[1]).Should().Be(6789);
@@ -83,7 +84,7 @@ namespace TinyJson.Test
       [Test]
       public void ArrayWithWhitespace()
       {
-         var val = Json.InnerParse("\r\n\t     [1234, 6789]");
+         var val = Json.Parse("\r\n\t     [1234, 6789]");
 
          ((double)((ArrayValue)val).Value[0]).Should().Be(1234);
          ((double)((ArrayValue)val).Value[1]).Should().Be(6789);
@@ -92,7 +93,7 @@ namespace TinyJson.Test
       [Test]
       public void ArrayOfBool()
       {
-         var val = Json.InnerParse("[true, false, true]");
+         var val = Json.Parse("[true, false, true]");
 
          ((bool)((ArrayValue)val).Value[0]).Should().Be(true);
          ((bool)((ArrayValue)val).Value[1]).Should().Be(false);
@@ -102,7 +103,7 @@ namespace TinyJson.Test
       [Test]
       public void ArrayOfNull()
       {
-         var val = Json.InnerParse("[null, null]");
+         var val = Json.Parse("[null, null]");
 
          ((ArrayValue)val).Value[0].Should().Be(null);
          ((ArrayValue)val).Value[1].Should().Be(null);
@@ -111,7 +112,7 @@ namespace TinyJson.Test
       [Test]
       public void ArrayOfStrings()
       {
-         var val = Json.InnerParse("[\"abc\", \"123\"]");
+         var val = Json.Parse("[\"abc\", \"123\"]");
 
          ((string)((ArrayValue)val).Value[0]).Should().Be("abc");
          ((string)((ArrayValue)val).Value[1]).Should().Be("123");
@@ -120,7 +121,7 @@ namespace TinyJson.Test
       [Test]
       public void ArrayOfArrays()
       {
-         var val = Json.InnerParse("[[1], [2], [3]]");
+         var val = Json.Parse("[[1], [2], [3]]");
 
          ((double)((ArrayValue)((ArrayValue)val).Value[0]).Value[0]).Should().Be(1);
          ((double)((ArrayValue)((ArrayValue)val).Value[1]).Value[0]).Should().Be(2);
@@ -130,7 +131,7 @@ namespace TinyJson.Test
       [Test]
       public void MixedArray()
       {
-         var val = Json.InnerParse("[1234, true, null, \"ABCD\", [1]]");
+         var val = Json.Parse("[1234, true, null, \"ABCD\", [1]]");
 
          ((double)((ArrayValue)val).Value[0]).Should().Be(1234);
          ((bool)((ArrayValue)val).Value[1]).Should().Be(true);
@@ -142,7 +143,7 @@ namespace TinyJson.Test
       [Test]
       public void EmptyObject()
       {
-         var val = Json.InnerParse("{   \r\n\t}");
+         var val = Json.Parse("{   \r\n\t}");
 
          ((ObjectValue) val).Value.Should().BeEmpty();
       }
@@ -150,7 +151,7 @@ namespace TinyJson.Test
       [Test]
       public void Object()
       {
-         var val = Json.InnerParse("{ \"property\" : 1234 }");
+         var val = Json.Parse("{ \"property\" : 1234 }");
 
          ((double)((ObjectValue) val).Value["property"]).Should().Be(1234);
       }
@@ -158,7 +159,7 @@ namespace TinyJson.Test
       [Test]
       public void ObjectWithWhitespace()
       {
-         var val = Json.InnerParse("{  \r\n\t \"property\" \r\n\t : \t\r\n 1234 \r\t\n }");
+         var val = Json.Parse("{  \r\n\t \"property\" \r\n\t : \t\r\n 1234 \r\t\n }");
 
          ((double)((ObjectValue)val).Value["property"]).Should().Be(1234);
       }
@@ -166,7 +167,7 @@ namespace TinyJson.Test
       [Test]
       public void NestedObject()
       {
-         var val = Json.InnerParse("{ \"property\": { \"property\": 1234 } }");
+         var val = Json.Parse("{ \"property\": { \"property\": 1234 } }");
 
          ((double)((ObjectValue)((ObjectValue)val).Value["property"]).Value["property"]).Should().Be(1234);
       }
@@ -177,51 +178,6 @@ namespace TinyJson.Test
          var val = new JsonParserFromString().Prop("\"property\":1234");
          val.Value.Key.Should().Be("property");
          ((double)val.Value.Value).Should().Be(1234);
-      }
-
-      [Test]
-      public void IndexOneLevelDeep()
-      {
-         var val = (ObjectValue)Json.InnerParse("{ \"property\": 1234 }");
-         var prop = (double) val["property"];
-
-         prop.Should().Be(1234);
-      }
-
-      [Test]
-      public void IndexTwoLevelsDeep()
-      {
-         var val = (ObjectValue)Json.InnerParse("{ \"property\": { \"property\": 1234 } }");
-         var prop = (double)val["property.property"];
-
-         prop.Should().Be(1234);
-      }
-
-      [Test]
-      public void IndexWithArrayIndex()
-      {
-         var val = (ObjectValue)Json.InnerParse("{ \"property\": [1234] }");
-         var prop = (double)val["property[0]"];
-
-         prop.Should().Be(1234);
-      }
-
-      [Test]
-      public void IndexTwoLevelsDeepWithArrayIndex()
-      {
-         var val = (ObjectValue)Json.InnerParse("{ \"property\": { \"property\": [1234] }}");
-         var prop = (double)val["property.property[0]"];
-
-         prop.Should().Be(1234);
-      }
-
-      [Test]
-      public void IndexTwoLevelsDeepWithArrayIndex2()
-      {
-         var val = (ObjectValue)Json.InnerParse("{ \"property\": [{ \"property\": 1234 }]}");
-         var prop = (double)val["property[0].property"];
-
-         prop.Should().Be(1234);
       }
    }
 }

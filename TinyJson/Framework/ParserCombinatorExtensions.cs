@@ -25,5 +25,19 @@
                             return parser2(result.Rest);
          };
       }
+
+      public static Parser<TInput, TValue> REQUIRED<TInput, TValue>(
+         this Parser<TInput, TValue> parser,
+         string message)
+      {
+         return input => {
+            var result = parser(input);             
+
+            if (result == null)
+               throw new Json.ParseException(message);
+
+            return result;
+         };
+      }
    }
 }

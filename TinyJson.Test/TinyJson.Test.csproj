@@ -49,8 +49,10 @@
     <Compile Include="..\TinyJson.cs">
       <Link>TinyJson.cs</Link>
     </Compile>
+    <Compile Include="ErrorTests.cs" />
     <Compile Include="ParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

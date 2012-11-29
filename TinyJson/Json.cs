@@ -1,32 +1,11 @@
 ﻿namespace TinyJson
 {
    using System;
-   using System.IO;
    using Framework;
 
    public static class Json
    {
-      public static Object Parse<T>(string json)
-      {
-         return Parse<T>(new StringReader(json));
-      }
-
-      public static Object Parse<T>(Stream stream)
-      {
-         return Parse<T>(new StreamReader(stream));
-      }
-
-      public static Object Parse<T>(TextReader rdr)
-      {
-         return InnerParse(rdr);
-      }
-
-      public static Object InnerParse(TextReader rdr)
-      {
-         return InnerParse(rdr.ReadToEnd());
-      }
-
-      public static Object InnerParse(string json)
+      public static Object Parse(string json)
       {
          var result = new JsonParserFromString().All(json);
 
@@ -34,6 +13,15 @@
             return null;
 
          return result.Value;
+      }
+
+      public class ParseException : Exception
+      {
+         public ParseException(string message)
+            : base(message)
+         {
+            
+         }
       }
    }
 }

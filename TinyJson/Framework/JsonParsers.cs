@@ -16,7 +16,7 @@
          WsChr = chr => Whitespace.AND(Char(chr));
          PString = from begin in WsChr('"')
                    from cs in Rep(Char(c => c != '\"'))
-                   from end in Char('"')
+                   from end in Char('"').REQUIRED("Expected end of string '\"', found end of file")
                    select (Object)(cs.Aggregate(string.Empty, (acc, ch) => acc + ch));
          PNumber = from whitespace in Whitespace
                    from n in Char(char.IsDigit)
@@ -27,14 +27,14 @@
                      Rep(from value in Value
                          from comma in Rep(Char(','))
                          select value)
-                  from end in WsChr(']')
+                  from end in WsChr(']').REQUIRED("Expected end of array ']', found end of file")
                   select (Object)new ArrayValue(values);
          PObject = from begin in WsChr('{')
                    from props in
                       Rep(from prop in Prop
                           from comma in Rep(Char(','))
                           select prop)
-                   from end in WsChr('}')
+                   from end in WsChr('}').REQUIRED("Expected end of object '}', found end of file")
                    select (Object)new ObjectValue(props.ToDictionary(kvp => kvp.Key, kvp => kvp.Value));
          Prop = from identifier in PString
                 from colon in WsChr(':')
@@ -53,11 +53,13 @@
             .OR(PObject)
             .OR(PBool)
             .OR(PNull);
+//            .REQUIRED("Input was not a valid JSON value");
          All = Value;
       }
 
       public Parser<TInput, char[]> Whitespace;
       public Func<char, Parser<TInput, char>> WsChr;
+      public Parser<TInput, char> ThrowException;
       public Parser<TInput, string> Id;
       public Parser<TInput, Object> Value;
       public Parser<TInput, Object> PString;
@@ -66,6 +68,7 @@
       public Parser<TInput, Object> PArray;
       public Parser<TInput, Object> PBool;
       public Parser<TInput, Object> PNull;
+      
       public Parser<TInput, KeyValuePair<string, Object>> Prop;
       public Parser<TInput, Object> All;
    }

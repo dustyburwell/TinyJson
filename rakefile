@@ -3,7 +3,7 @@ CS_FILES = FileList["TinyJson/**/*.cs"]
 CS_FILES.exclude('*/obj/*')
 CS_FILES.exclude('*/bin/*')
 
-task :default => ['TinyJson.cs']
+task :default => :test
 
 task 'TinyJson.cs' => CS_FILES do 
 	f = File.new('TinyJson.cs', "w+")
@@ -13,4 +13,13 @@ task 'TinyJson.cs' => CS_FILES do
 	  f_in.close
 	end
 	f.close
+end
+
+task :build => 'TinyJson.cs' do
+   system("C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\MSBuild.exe /v:q")
+end
+
+
+task :test => :build do
+   system(".\\packages\\NUnit.Runners.2.6.2\\tools\\nunit-console.exe TinyJson.Test\\bin\\debug\\TinyJson.Test.dll")
 end
