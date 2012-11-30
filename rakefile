@@ -5,20 +5,20 @@ CS_FILES.exclude('*/bin/*')
 task :default => :test
 
 task 'TinyJson.cs' => CS_FILES do 
-   f = File.new('TinyJson.cs', "w+")
-   CS_FILES.each do |f_name|
-      f_in = File.open(f_name, "r")
-      f_in.each {|f_str| f.puts(f_str)}
-      f_in.close
-   end
-   f.close
+  f = File.new('TinyJson.cs', "w+")
+  CS_FILES.each do |f_name|
+    f_in = File.open(f_name, "r")
+    f_in.each {|f_str| f.puts(f_str)}
+    f_in.close
+  end
+  f.close
 end
 
 task :build => 'TinyJson.cs' do
-   system("C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\MSBuild.exe /v:q")
+  system("C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\MSBuild.exe /v:q")
 end
 
 
 task :test => :build do
-   system(".\\packages\\NUnit.Runners.2.6.2\\tools\\nunit-console.exe TinyJson.Test\\bin\\debug\\TinyJson.Test.dll")
+  system(".\\packages\\NUnit.Runners.2.6.2\\tools\\nunit-console.exe TinyJson.Test\\bin\\debug\\TinyJson.Test.dll")
 end
