@@ -32,6 +32,34 @@ authentication, chances are you're going to need to parse some Json. Do so
 with TinyJson and it will make your own library easier to reference in the
 future.
 
+### Usage
+
+TinyJson is a parser, not a serializer or deserializer...yet. Usage is as simple
+as
+
+    object value = TinyJson.Json.Parse(@"{""property"": 1234}");
+
+`value` will be an `ObjectValue`, `ArrayValue`, string, double, bool, or null
+depending on whether the input represents an object, array, string, number, bool,
+or null, respectively. If the input was a primitive type, simply cast and use.
+If, on the other hand, your input represents a Json object then you are going
+to be lucky enough to use TinyJson's object query syntax. It's not that fancy
+really. It's just 'dot' notation with array indexers.
+
+#### Query Examples
+
+Nested 'dot' notation
+
+    var val = (ObjectValue)Json.Parse("{ \"property\": { \"property\": \"abc123\" } }");
+    var prop = (string)val["property.property"];
+    prop.Should().Be("abc123");
+    
+'dot' notation with array indexer
+
+    var val = (ObjectValue)Json.Parse("{ \"property\": { \"property\": [1234] }}");
+    var prop = (double)val["property.property[0]"];
+    prop.Should().Be(1234);
+
 [1]: http://msdn.microsoft.com/en-us/library/system.runtime.serialization.json.datacontractjsonserializer.aspx
 [2]: http://stackoverflow.com/questions/4559991/any-way-to-make-datacontractjsonserializer-serialize-dictionaries-properly
 [3]: http://msdn.microsoft.com/en-us/library/system.json.jsonvalue(v=vs.110).aspx
