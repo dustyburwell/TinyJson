@@ -3,6 +3,7 @@
    using System;
    using System.Collections.Generic;
    using System.Linq;
+   using System.Globalization;
 
    public abstract class JsonParsers<TInput> : CharParsers<TInput>
    {
@@ -106,6 +107,15 @@
                   break;
                case '/':
                   value = '/';
+                  break;
+               case 'u':
+                  var char1 = AnyChar(result2.Rest);
+                  var char2 = AnyChar(char1.Rest);
+                  var char3 = AnyChar(char2.Rest);
+                  result2 = AnyChar(char3.Rest);
+
+                  var charCode = Int32.Parse(char1.Value.ToString() + char2.Value + char3.Value + result2.Value, NumberStyles.HexNumber);
+                  value = Convert.ToChar(charCode);
                   break;
                default:
                   throw new Json.ParseException("Unknown escape sequence '\\" + result2.Value + "'");

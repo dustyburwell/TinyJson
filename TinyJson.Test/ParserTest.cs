@@ -81,6 +81,14 @@ namespace TinyJson.Test
       }
 
       [Test]
+      public void StringWithUnicodeCharacter()
+      {
+         var val = Json.Parse("\"\u263A\"");
+
+         ((string)val).Should().Be("☺");
+      }
+
+      [Test]
       public void ArrayOfNumbers()
       {
          var val = Json.Parse("[1234, 6789]");
