@@ -27,6 +27,13 @@ namespace TinyJson.Test
             .ShouldThrow<Json.ParseException>();
       }
 
+      [Test]
+      public void UnknownEscapeSequence()
+      {
+         new object().Invoking(o => Json.Parse("\"\\a\""))
+            .ShouldThrow<Json.ParseException>();
+      }
+
 //      [Test]
 //      public void NotAValue()
 //      {
