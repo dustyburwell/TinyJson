@@ -73,6 +73,14 @@ namespace TinyJson.Test
       }
 
       [Test]
+      public void StringWithEscapeCharacters()
+      {
+         var val = Json.Parse("\"Hello,\\r\\n\\t\\\"\\\\\\/ world!\"");
+
+         ((string)val).Should().Be("Hello,\r\n\t\"\\/ world!");
+      }
+
+      [Test]
       public void ArrayOfNumbers()
       {
          var val = Json.Parse("[1234, 6789]");

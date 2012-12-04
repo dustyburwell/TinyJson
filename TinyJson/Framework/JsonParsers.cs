@@ -7,7 +7,7 @@
    public abstract class JsonParsers<TInput> : CharParsers<TInput>
    {
       protected JsonParsers()
-      {
+      {  
          Whitespace = Rep(Char(' ').OR(Char('\t').OR(Char('\n')).OR(Char('\r'))));
          Id = from w in Whitespace
               from c in Char(char.IsLetter)
@@ -15,7 +15,7 @@
               select cs.Aggregate(c.ToString(), (acc, ch) => acc + ch);
          WsChr = chr => Whitespace.AND(Char(chr));
          PString = from begin in WsChr('"')
-                   from cs in Rep(Char(c => c != '\"'))
+                   from cs in Rep(EscapedChar())
                    from end in Char('"').REQUIRED("Expected end of string '\"', found end of file")
                    select (Object)(cs.Aggregate(string.Empty, (acc, ch) => acc + ch));
          PNumber = from whitespace in Whitespace
@@ -71,5 +71,48 @@
       
       public Parser<TInput, KeyValuePair<string, Object>> Prop;
       public Parser<TInput, Object> All;
+
+      public Parser<TInput, char> EscapedChar()
+      {
+         return input =>
+         {
+            var result1 = AnyChar(input);
+
+            if (result1 == null || result1.Value == '"')
+               return null;
+
+            if (result1.Value != '\\')
+               return result1;
+
+            var result2 = AnyChar(result1.Rest);
+
+            char value;
+            switch (result2.Value)
+            {
+               case '\\':
+                  value = '\\';
+                  break;
+               case '\"':
+                  value = '\"';
+                  break;
+               case 'r':
+                  value = '\r';
+                  break;
+               case 'n':
+                  value = '\n';
+                  break;
+               case 't':
+                  value = '\t';
+                  break;
+               case '/':
+                  value = '/';
+                  break;
+               default:
+                  throw new Json.ParseException("Unknown escape sequence '\\" + result2.Value + "'");
+            }
+
+            return new Result<TInput, char>(value, result2.Rest);
+         };
+      }
    }
 }
