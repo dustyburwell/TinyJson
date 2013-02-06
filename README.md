@@ -1,3 +1,7 @@
+Well, that was fun, but shortly after starting TinyJson, I found [SimpleJson][5].
+It's much more thorough and complete than TinyJson at this point. I don't plan on
+continuing development of TinyJson because I have nothing to add here. :sparkles:
+
 ## Welcome to TinyJson
 
 Introducing TinyJson: a self-contained, single-file Json parser written in C#.
@@ -64,3 +68,4 @@ Nested 'dot' notation
 [2]: http://stackoverflow.com/questions/4559991/any-way-to-make-datacontractjsonserializer-serialize-dictionaries-properly
 [3]: http://msdn.microsoft.com/en-us/library/system.json.jsonvalue(v=vs.110).aspx
 [4]: http://json.codeplex.com/
+[5]: https://github.com/facebook-csharp-sdk/simple-json
